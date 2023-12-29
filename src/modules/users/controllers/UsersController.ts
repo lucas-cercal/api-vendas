@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import ListUserService from '../services/ListUserService';
 import CreateUserService from '../services/CreateUserService';
 
-export default class UsersControllers {
+export default class UsersController {
   public async index(req: Request, res: Response): Promise<Response> {
     const listUser = new ListUserService();
 
