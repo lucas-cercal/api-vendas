@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import { errors } from 'celebrate';
@@ -16,6 +16,7 @@ app.use(routes);
 
 app.use(errors());
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
@@ -31,5 +32,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(3333, () => {
+  // eslint-disable-next-line no-console
   console.log('Server started on port 3333! 🏆');
 });
