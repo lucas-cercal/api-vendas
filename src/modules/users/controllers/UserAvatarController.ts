@@ -4,7 +4,7 @@ import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
 export default class UserAvatarController {
   public async update(req: Request, res: Response): Promise<Response> {
     const updateAvatar = new UpdateUserAvatarService();
-    const user = updateAvatar.execute({
+    const user = await updateAvatar.execute({
       user_id: req.user.id,
       avatarFilename: req.file?.filename as string,
     });
