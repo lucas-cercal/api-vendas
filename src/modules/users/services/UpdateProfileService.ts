@@ -19,7 +19,7 @@ class UpdateProfileService {
     email,
     password,
     old_password,
-  }: IRequest): Promise<User> {
+  }: IRequest): Promise<Partial<User>> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findById(user_id);
 
@@ -38,6 +38,11 @@ class UpdateProfileService {
 
       if (!checkOldPassword) throw new AppError('Old password does not match.');
 
+      const checkNowPassword = await compare(password, user.password);
+
+      if (checkNowPassword)
+        throw new AppError('This password has already been used.');
+
       user.password = await hash(password, 8);
     }
 
@@ -46,7 +51,12 @@ class UpdateProfileService {
 
     await usersRepository.save(user);
 
-    return user;
+    const removeSensitivyContentFromUser = ({
+      password,
+      ...user
+    }: User): Partial<User> => user;
+
+    return removeSensitivyContentFromUser(user);
   }
 }
 
