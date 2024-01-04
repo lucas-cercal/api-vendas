@@ -1,8 +1,9 @@
+import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
-import AppError from '@shared/errors/AppError';
 import { compare, hash } from 'bcryptjs';
+import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   user_id: string;
@@ -50,11 +51,6 @@ class UpdateProfileService {
     user.email = email;
 
     await usersRepository.save(user);
-
-    const removeSensitivyContentFromUser = ({
-      password,
-      ...user
-    }: User): Partial<User> => user;
 
     return removeSensitivyContentFromUser(user);
   }

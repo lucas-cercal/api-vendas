@@ -3,6 +3,7 @@ import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
+import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   name: string;
@@ -11,7 +12,11 @@ interface IRequest {
 }
 
 class CreateUserService {
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: IRequest): Promise<Partial<User>> {
     const usersRepository = getCustomRepository(UsersRepository);
     const emailExists = await usersRepository.findByEmail(email);
     if (emailExists) {
@@ -28,7 +33,7 @@ class CreateUserService {
 
     await usersRepository.save(user);
 
-    return user;
+    return removeSensitivyContentFromUser(user);
   }
 }
 

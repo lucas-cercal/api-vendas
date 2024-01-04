@@ -5,6 +5,7 @@ import User from '../typeorm/entities/User';
 import path from 'path';
 import fs from 'fs';
 import uploadConfig from '@config/upload';
+import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   user_id: string;
@@ -15,7 +16,7 @@ class UpdateUserAvatarService {
   public async execute({
     user_id,
     avatarFilename,
-  }: IRequest): Promise<User | undefined> {
+  }: IRequest): Promise<Partial<User> | undefined> {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findById(user_id);
@@ -35,7 +36,7 @@ class UpdateUserAvatarService {
 
     await usersRepository.save(user);
 
-    return user;
+    return removeSensitivyContentFromUser(user);
   }
 }
 

@@ -1,10 +1,11 @@
+import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../typeorm/entities/User';
-import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
+import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   email: string;
@@ -12,7 +13,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  user: User;
+  userUpdated: Partial<User>;
   token: string;
 }
 
@@ -36,8 +37,10 @@ class CreateSessionsService {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
+    const userUpdated = removeSensitivyContentFromUser(user);
+
     return {
-      user,
+      userUpdated,
       token,
     };
   }
