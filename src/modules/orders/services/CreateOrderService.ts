@@ -50,7 +50,7 @@ class CreateOrderService {
 
     if (quantityAvailable.length)
       throw new AppError(
-        `Could not find product ${quantityAvailable[0].quantity} is not available for ${quantityAvailable[0].id}`,
+        `Could not find product ${quantityAvailable[0].id} is not available for ${quantityAvailable[0].quantity}`,
       );
 
     const serializedProducts = products.map(product => ({
