@@ -27,6 +27,6 @@ export default class ProfileController {
       old_password,
     });
 
-    return res.json(user);
+    return res.json(instanceToInstance(user));
   }
 }
