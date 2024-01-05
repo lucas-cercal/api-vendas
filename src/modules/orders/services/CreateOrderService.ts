@@ -42,6 +42,17 @@ class CreateOrderService {
         `Could not find product ${checkInexistentProducts[0].id}`,
       );
 
+    const quantityAvailable = products.filter(
+      product =>
+        existsProducts.filter(p => p.id === product.id)[0].quantity <
+        product.quantity,
+    );
+
+    if (quantityAvailable.length)
+      throw new AppError(
+        `Could not find product ${quantityAvailable[0].quantity} is not available for ${quantityAvailable[0].id}`,
+      );
+
     return;
   }
 }
