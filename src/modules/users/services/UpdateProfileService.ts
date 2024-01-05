@@ -3,7 +3,6 @@ import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
 import { compare, hash } from 'bcryptjs';
-import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   user_id: string;
@@ -52,7 +51,7 @@ class UpdateProfileService {
 
     await usersRepository.save(user);
 
-    return removeSensitivyContentFromUser(user);
+    return user;
   }
 }
 

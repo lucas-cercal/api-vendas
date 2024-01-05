@@ -5,7 +5,6 @@ import User from '../typeorm/entities/User';
 import path from 'path';
 import fs from 'fs';
 import uploadConfig from '@config/upload';
-import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   user_id: string;
@@ -36,7 +35,7 @@ class UpdateUserAvatarService {
 
     await usersRepository.save(user);
 
-    return removeSensitivyContentFromUser(user);
+    return user;
   }
 }
 

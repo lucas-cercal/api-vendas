@@ -2,7 +2,6 @@ import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
-import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   user_id: string;
@@ -15,7 +14,7 @@ class ShowProfileService {
 
     if (!user) throw new AppError('User not found.');
 
-    return removeSensitivyContentFromUser(user);
+    return user;
   }
 }
 

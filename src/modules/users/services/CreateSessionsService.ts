@@ -5,7 +5,6 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../typeorm/entities/User';
 import authConfig from '@config/auth';
-import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   email: string;
@@ -13,7 +12,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  userUpdated: Partial<User>;
+  user: Partial<User>;
   token: string;
 }
 
@@ -37,10 +36,8 @@ class CreateSessionsService {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
-    const userUpdated = removeSensitivyContentFromUser(user);
-
     return {
-      userUpdated,
+      user,
       token,
     };
   }

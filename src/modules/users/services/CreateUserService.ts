@@ -3,7 +3,6 @@ import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
-import { removeSensitivyContentFromUser } from '../utils/removeSensitivyContentFromUser';
 
 interface IRequest {
   name: string;
@@ -33,7 +32,7 @@ class CreateUserService {
 
     await usersRepository.save(user);
 
-    return removeSensitivyContentFromUser(user);
+    return user;
   }
 }
 
