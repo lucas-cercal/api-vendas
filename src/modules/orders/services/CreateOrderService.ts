@@ -75,7 +75,7 @@ class CreateOrderService {
 
     await productsRepository.save(updatedProductQuantity);
 
-    return;
+    return order;
   }
 }
 
