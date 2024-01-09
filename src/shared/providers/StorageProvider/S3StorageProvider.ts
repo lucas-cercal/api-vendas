@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import aws, { S3 } from 'aws-sdk';
 import upload from '@config/upload';
+import mime from 'mime';
 
 export default class S3StorageProvider {
   private client: S3;
@@ -15,18 +16,33 @@ export default class S3StorageProvider {
   public async saveFile(file: string): Promise<string> {
     const originalPath = path.resolve(upload.tmpFolder, file);
 
+    const ContentType = mime.getType(originalPath);
+
+    if (!ContentType) throw new Error('File not found');
+
+    const fileContent = await fs.promises.readFile(originalPath);
+
+    await this.client
+      .putObject({
+        Bucket: upload.config.aws.bucket,
+        Key: file,
+        ACL: 'public-read',
+        Body: fileContent,
+        ContentType,
+      })
+      .promise();
+
+    await fs.promises.unlink(originalPath);
+
     return file;
   }
 
   public async deleteFile(file: string): Promise<void> {
-    const filePath = path.resolve(upload.directory, file);
-
-    try {
-      await fs.promises.stat(filePath);
-    } catch {
-      return;
-    }
-
-    await fs.promises.unlink(filePath);
+    await this.client
+      .deleteObject({
+        Bucket: upload.config.aws.bucket,
+        Key: file,
+      })
+      .promise();
   }
 }
