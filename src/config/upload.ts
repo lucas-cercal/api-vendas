@@ -3,7 +3,7 @@ import multer, { StorageEngine } from 'multer';
 import crypto from 'crypto';
 
 interface IUploadConfig {
-  dirver: 's3' | 'disk';
+  driver: 's3' | 'disk';
   tmpFolder: string;
   directory: string;
   multer: {
@@ -21,6 +21,7 @@ const uploadFolder = path.resolve(__dirname, '..', '..', 'uploads');
 const tmpFolder = path.resolve(__dirname, '..', '..', 'temp');
 
 export default {
+  driver: process.env.STORAGE_DRIVER,
   directory: uploadFolder,
   tmpFolder,
   multer: {
@@ -36,7 +37,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'api-vendas',
+      bucket: 'api-vendas-cercal',
     },
   },
 } as IUploadConfig;

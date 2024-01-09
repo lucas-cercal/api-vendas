@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import aws, { S3 } from 'aws-sdk';
 import upload from '@config/upload';
-import mime from 'mime';
+import mimeTypes from 'mime-types';
 
 export default class S3StorageProvider {
   private client: S3;
@@ -16,7 +16,7 @@ export default class S3StorageProvider {
   public async saveFile(file: string): Promise<string> {
     const originalPath = path.resolve(upload.tmpFolder, file);
 
-    const ContentType = mime.getType(originalPath);
+    const ContentType = mimeTypes.lookup(originalPath);
 
     if (!ContentType) throw new Error('File not found');
 
