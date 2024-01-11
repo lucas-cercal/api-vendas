@@ -1,6 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
 import Order from '../entities/Order';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import IOrdersRepository from '@modules/orders/domain/repositories/IOrdersRepository';
 import { ICustomer } from '@modules/customers/domain/models/ICustomer';
 
