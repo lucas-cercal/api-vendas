@@ -1,6 +1,7 @@
-import { IProduct } from '@modules/products/domain/models/IProduct';
+import { ICustomer } from '@modules/customers/domain/models/ICustomer';
+import { ICreateOrderProducts } from './ICreateOrderProducts';
 
-export default interface ICreateOrder {
-  customer_id: string;
-  products: IProduct[];
+export interface ICreateOrder {
+  customer: ICustomer;
+  products: ICreateOrderProducts[];
 }
