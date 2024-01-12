@@ -4,7 +4,7 @@ interface IFindProducts {
   id: string;
 }
 
-export default interface IProductsRepository {
+export interface IProductsRepository {
   findByName(name: string): Promise<IProduct | undefined>;
   findAllByIds(products: IFindProducts[]): Promise<IProduct[]>;
 }
