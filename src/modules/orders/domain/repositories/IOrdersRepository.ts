@@ -1,18 +1,7 @@
-import { ICustomer } from '@modules/customers/domain/models/ICustomer';
+import { ICreateOrder } from '../models/ICreateOrder';
 import { IOrder } from '../models/IOrder';
 
-interface IProduct {
-  product_id: string;
-  price: number;
-  quantity: number;
-}
-
-interface IRequest {
-  customer: ICustomer;
-  products: IProduct[];
-}
-
-export default interface IOrdersRepository {
+export interface IOrdersRepository {
   findById(id: string): Promise<IOrder | undefined>;
-  createOrder({ customer, products }: IRequest): Promise<IOrder>;
+  create(data: ICreateOrder): Promise<IOrder>;
 }
