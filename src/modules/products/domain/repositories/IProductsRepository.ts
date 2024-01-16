@@ -6,8 +6,8 @@ import { IUpdateStockProduct } from '../models/IUpdateStockProduct';
 export interface IProductsRepository {
   findByName(name: string): Promise<IProduct | undefined>;
   findById(id: string): Promise<IProduct | undefined>;
-  findAll(): Promise<IProduct[]>;
-  findAllByIds(products: IFindProducts[]): Promise<IProduct[]>;
+  findAll(): Promise<IProduct[] | undefined>;
+  findAllByIds(products: IFindProducts[]): Promise<IProduct[] | undefined>;
   create(data: ICreateProduct): Promise<IProduct>;
   save(product: IProduct): Promise<IProduct>;
   updateStock(products: IUpdateStockProduct[]): Promise<void>;
