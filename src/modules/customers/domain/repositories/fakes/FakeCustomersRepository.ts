@@ -31,7 +31,7 @@ export default class FakeCustomersRepository implements ICustomersRepository {
   public async remove(customer: Customer): Promise<void> {}
 
   public async findAll(): Promise<Customer[] | undefined> {
-    return undefined;
+    return this.customers;
   }
 
   public async findByName(name: string): Promise<Customer | undefined> {
