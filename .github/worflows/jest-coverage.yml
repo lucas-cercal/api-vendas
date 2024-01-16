@@ -1,0 +1,23 @@
+name: 'Jest Coverage'
+on:
+  push:
+    branches:
+      - main-v2
+  pull_request:
+    branches:
+      - main-v2
+jobs:
+  coverage:
+    environment: coverage
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install dependencies and run tests
+        uses: ArtiomTr/jest-coverage-report-action@v2.0.9
+        with:
+          working-directory: ./
