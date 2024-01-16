@@ -9,8 +9,8 @@ class ListProductService {
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
   ) {}
-  public async execute(): Promise<IProduct[]> {
-    let products = await redisCache.recover<IProduct[]>(
+  public async execute(): Promise<IProduct[] | undefined> {
+    let products = await redisCache.recover<IProduct[] | undefined>(
       `${process.env.REDIS_KEY}`,
     );
 
