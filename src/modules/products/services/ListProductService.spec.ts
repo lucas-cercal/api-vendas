@@ -6,14 +6,14 @@ import { IProduct } from '../domain/models/IProduct';
 
 let fakeProductsRepository: FakeProductsRepository;
 let createProduct: CreateProductService;
-let listCustomer: ListProductService;
+let listProduct: ListProductService;
 let productCreated: IProduct;
 
 describe('List products', () => {
   beforeEach(async () => {
     fakeProductsRepository = new FakeProductsRepository();
     createProduct = new CreateProductService(fakeProductsRepository);
-    listCustomer = new ListProductService(fakeProductsRepository);
+    listProduct = new ListProductService(fakeProductsRepository);
 
     productCreated = await createProduct.execute({
       name: 'Calça Jeans',
@@ -23,7 +23,7 @@ describe('List products', () => {
   });
 
   it('Should be able to list products', async () => {
-    const products = await listCustomer.execute();
+    const products = await listProduct.execute();
 
     expect(products).toContain(productCreated);
   });
