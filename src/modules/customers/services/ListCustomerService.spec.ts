@@ -9,7 +9,7 @@ let createCustomer: CreateCustomerService;
 let listCustomer: ListCustomerService;
 let customerCreated: ICustomer;
 
-describe('Show customer', () => {
+describe('List customers', () => {
   beforeEach(async () => {
     fakeCustomersRepository = new FakeCustomersRepository();
     createCustomer = new CreateCustomerService(fakeCustomersRepository);
