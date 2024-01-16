@@ -21,9 +21,9 @@ describe('List customers', () => {
     });
   });
 
-  it('Should be able to show a customer', async () => {
-    const customer = await listCustomer.execute();
+  it('Should be able to list customers', async () => {
+    const customers = await listCustomer.execute();
 
-    expect(customer).toContain(customerCreated);
+    expect(customers).toContain(customerCreated);
   });
 });

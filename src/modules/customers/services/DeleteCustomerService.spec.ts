@@ -22,7 +22,7 @@ describe('Delete customer', () => {
     });
   });
 
-  it('Should be able to show a customer', async () => {
+  it('Should be able to delete a customer', async () => {
     const customer = await deleteCustomer.execute({
       id: customerCreated.id,
     });
@@ -37,10 +37,4 @@ describe('Delete customer', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
-  //   expect(
-  //     showCustomer.execute({
-  //       id: '8b0faf16-a8a0-4212-a2a5-2547de606b45',
-  //     }),
-  //   ).rejects.toBeInstanceOf(AppError);
-  // });
 });

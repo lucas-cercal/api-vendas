@@ -22,9 +22,11 @@ describe('List products', () => {
     });
   });
 
-  it('Should be able to show a product', async () => {
-    const product = await listCustomer.execute();
+  it('Should be able to list products', async () => {
+    const products = await listCustomer.execute();
 
-    expect(product).toContain(productCreated);
+    console.log('Lista: ', products);
+
+    expect(products).toContain(productCreated);
   });
 });
