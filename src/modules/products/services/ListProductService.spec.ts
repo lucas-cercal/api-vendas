@@ -25,8 +25,6 @@ describe('List products', () => {
   it('Should be able to list products', async () => {
     const products = await listCustomer.execute();
 
-    console.log('Lista: ', products);
-
     expect(products).toContain(productCreated);
   });
 });
