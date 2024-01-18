@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import { errors } from 'celebrate';
-import { pagination } from 'typeorm-pagination';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/infra/typeorm';
@@ -15,7 +14,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
-app.use(pagination);
 
 app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
